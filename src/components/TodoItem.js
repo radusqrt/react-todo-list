@@ -22,6 +22,8 @@ export class TodoItem extends Component {
         <p>
           <input
             type="checkbox"
+            // we can't simply change the state here (completed = true)
+            // so we go through props to the parent climbing up to App.js
             onChange={this.props.toggleCheckbox.bind(this, id)}
             defaultChecked={completed}
           />{" "}
