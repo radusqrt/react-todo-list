@@ -21,7 +21,7 @@ class App extends Component {
   }
 
   // Toggle "completed"
-  markComplete = id => {
+  toggleCheckbox = id => {
     this.setState({
       todos: this.state.todos.map(todo => {
         if (todo.id === id) {
@@ -34,11 +34,14 @@ class App extends Component {
 
   // Delete Todo
   delTodo = id => {
-    axios.delete(`https://jsonplaceholder.typicode.com/todos/${id}`).then(res =>
-      this.setState({
-        todos: this.state.todos.filter(todo => todo.id !== id)
-      })
-    );
+    axios
+      .delete(`https://jsonplaceholder.typicode.com/todos/${id}`)
+      .then(res => {
+        console.log(res);
+        this.setState({
+          todos: this.state.todos.filter(todo => todo.id !== id)
+        });
+      });
   };
 
   // Add Todo
@@ -66,13 +69,13 @@ class App extends Component {
             <Route
               exact
               path="/"
-              render={props => (
+              render={() => (
                 <React.Fragment>
                   <AddTodo addTodo={this.addTodo} />
                   {/* passing todos as a prop */}
                   <Todos
                     todos={this.state.todos}
-                    markComplete={this.markComplete}
+                    toggleCheckbox={this.toggleCheckbox}
                     delTodo={this.delTodo}
                   />
                 </React.Fragment>
